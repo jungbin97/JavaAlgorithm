@@ -13,7 +13,7 @@ public class Main {
             A[i] = i;
         }
         
-        for (int i = 2; i <= n; i++) {
+        for (int i = 2; i <= Math.sqrt(n); i++) {
             if (A[i] == 0) {
                 continue;
             }
