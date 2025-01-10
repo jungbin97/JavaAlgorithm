@@ -6,10 +6,14 @@ class Solution {
         
         int n = nums.length;
         // 중복 값 제거 배열
-        int[] set_nums = Arrays.stream(nums).distinct().toArray();
+        Set<Integer> set_nums = new HashSet<>();
         
-        if (set_nums.length < n/2) {
-            answer = set_nums.length;
+        for (int num : nums) {
+            set_nums.add(num);
+        }
+        
+        if (set_nums.size() < n/2) {
+            answer = set_nums.size();
         } else {
             answer = n/2;
         }
