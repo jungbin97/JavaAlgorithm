@@ -9,12 +9,11 @@ class Solution {
             map.put(clothes[i][1], map.getOrDefault(clothes[i][1], 1) + 1);
         }
         
-        for (int i : map.values()) {
-            answer *= i;
+        
+        
+        for (String str : map.keySet()) {
+            answer *= map.get(str);
         }
-        
-        
-        
         
         return answer-1;
     }
