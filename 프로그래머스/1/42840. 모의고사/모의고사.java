@@ -31,7 +31,12 @@ class Solution {
             }
         }
         
-        return result.stream().mapToInt(i->i).toArray();
+        int[] temp = new int[result.size()];
+        for (int i = 0; i < result.size(); i++) {
+            temp[i] = result.get(i);
+        }
+        
+        return temp;
     }
 }
 
