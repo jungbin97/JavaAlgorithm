@@ -4,39 +4,34 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        
-        // 노드 개수
-        int N = Integer.parseInt(br.readLine());
-        
-        // 인접 행렬 초기화
-        int[][] distance = new int[N+1][N+1];
+        StringTokenizer st;
 
-        for (int i = 1; i <= N; i++) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            for (int j = 1; j <= N; j++) {
-                distance[i][j] = Integer.parseInt(st.nextToken());
+        int N = Integer.parseInt(br.readLine());
+
+        int[][] graph = new int[N][N];
+
+        for (int i =  0; i < N; i++) {
+            st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < N; j++) {
+                graph[i][j] = Integer.parseInt(st.nextToken());
             }
         }
-        
-        // 플로이드 워셜
-        // 중간 노드
-        for (int k = 1; k <= N; k++) {
-            for (int i = 1; i <= N; i++) {
-                for (int j = 1; j <= N; j++) {
-                    if (distance[i][k] == 1 && distance[k][j] == 1) {
-                        distance[i][j] = 1;
+
+        for (int k = 0; k < N; k++) {
+            for (int i = 0; i < N; i++) {
+                for (int j = 0; j < N; j++) {
+                    if (graph[i][k] == 1 && graph[k][j] == 1) {
+                        graph[i][j] = 1;
                     }
                 }
             }
         }
-        
-        // 출력
-        for(int i = 1; i <= N; i++) {
-            for (int j = 1; j <= N; j++) {
-                System.out.print(distance[i][j] + " ");
+
+        for(int i = 0; i < N; i++) {
+            for(int j = 0; j < N; j++) {
+                System.out.print(graph[i][j] + " ");
             }
             System.out.println();
         }
-        
     }
 }
