@@ -1,32 +1,40 @@
 import java.util.*;
 import java.io.*;
 
+
 public class Main {
     public static void main(String[] args) throws Exception {
-        Scanner sc = new Scanner(System.in);
-        // 노드 개수
-        int n = sc.nextInt();
-        // 에지 개수
-        int m = sc.nextInt();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
         
-        // 학생 수만큼 인접 노드 생성
+
+        // 노드, 에지 개수
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+        
+
+        // 인접 리스트 초기화
         ArrayList<ArrayList<Integer>> A = new ArrayList<>();
-        for (int i = 0; i <= n; i++) {
+        
+        for (int i = 0; i <= N; i++) {
             A.add(new ArrayList<>());
         }
-        // 진입 차수
-        int[] indegree = new int[n+1];
+
+        // 진입 차수 배열
+        int[] arr = new int[N+1];
         
-        for (int i = 0; i < m; i++) {
-            int S = sc.nextInt();
-            int E = sc.nextInt();
-            A.get(S).add(E);
-            indegree[E]++;
+        for (int i = 0; i < M; i++) {
+            st = new StringTokenizer(br.readLine());
+            int s = Integer.parseInt(st.nextToken());
+            int e = Integer.parseInt(st.nextToken());
+            A.get(s).add(e);
+            arr[e]++;
         }
-        // 위상 정렬 수행
+        
         Queue<Integer> q = new LinkedList<>();
-        for (int i = 1; i <= n; i++) {
-            if (indegree[i] == 0) {
+        
+        for (int i = 1; i <= N; i++) {
+            if (arr[i] == 0) {
                 q.add(i);
             }
         }
@@ -35,11 +43,13 @@ public class Main {
             int now = q.poll();
             System.out.print(now + " ");
             for (int next : A.get(now)) {
-                indegree[next]--;
-                if (indegree[next] == 0) {
+                arr[next]--;
+                if (arr[next] == 0) {
                     q.add(next);
                 }
             }
+
         }
+
     }
 }
