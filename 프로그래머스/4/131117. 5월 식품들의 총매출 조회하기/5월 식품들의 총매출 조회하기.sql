@@ -1,0 +1,9 @@
+select FP.PRODUCT_ID, FP.PRODUCT_NAME, FP.PRICE*(sum(FO.AMOUNT)) as TOTAL_SALES from FOOD_PRODUCT FP
+join FOOD_ORDER FO
+on FP.PRODUCT_ID=FO.PRODUCT_ID
+where DATE_FORMAT(FO.PRODUCE_DATE, '%Y-%m') = '2022-05'
+GROUP BY PRODUCT_ID
+order by TOTAL_SALES desc, PRODUCT_ID asc
+
+-- 생산일자 2022년 5월인 식품
+-- 총매출 기준 내림차순, 식품 ID 기준 오름차순
