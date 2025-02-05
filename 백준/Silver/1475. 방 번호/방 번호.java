@@ -12,30 +12,21 @@ public class Main {
         
         while (N > 0) {
             // 뒷번호부터 탐색
-            
-            // 9또는 6이면
-            if (N%10 == 6 || N%10 == 9) {
-                // 숫자 작은 쪽에 넣기
-                if (numCount[9] <= numCount[6]) {
-                    numCount[9]++;
-                } else {
-                    numCount[6]++;
-                }
-            } else {
-                numCount[N%10]++;
-            }
+            numCount[N%10]++;
             N = N/10;
         }
         
 
         // 최댓값이 세트 수
         int maxCount = 0;
-        for (int count : numCount) {
-            if (count > maxCount) {
-                maxCount = count;
-            }
+        for (int i = 0; i < numCount.length; i++)  {
+            if (i == 6 || i == 9) continue;
+            maxCount = Math.max(maxCount, numCount[i]);
+            
         }
         
+        // (numCount[6]+numCount[9])/2를 올림한 값이 6, 9에 대한 세트 수=> (numCount[6]+numCount[9]+1) / 2 
+        maxCount = Math.max(maxCount, (numCount[6]+numCount[9]+1)/2);
         System.out.println(maxCount);
     }
 }
