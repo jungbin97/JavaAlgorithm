@@ -9,20 +9,17 @@ public class Main {
         int n = Integer.parseInt(br.readLine());
 
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int[] arr = new int[n];
+        int[] arr = new int[201];
         
         for (int i = 0; i < n; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
+            // 음수 저장을 위해 0 => 100, 1 => 101
+            int num = Integer.parseInt(st.nextToken());
+            arr[num+100]++;
         }
         // 찾으려는 수
         int v = Integer.parseInt(br.readLine());
 
-        int result = 0;
-        for (int i = 0; i < n; i++) {
-            if (v == arr[i]) {
-                result++;
-            }
-        }
+        int result = arr[v+100];
         
         System.out.println(result);
     }
