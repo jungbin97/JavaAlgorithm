@@ -8,7 +8,7 @@ public class Main {
         // 명령어 수
         int N = Integer.parseInt(br.readLine());
         
-        Deque<Integer> dq = new ArrayDeque<>();
+        Deque dq = new Deque();
         StringBuilder sb = new StringBuilder();
 
         StringTokenizer st;
@@ -57,6 +57,47 @@ public class Main {
         }
         
         System.out.println(sb.toString());
+    }
+    
+    public static class Deque {
+        // deque은 양방향으로 증가하기 때문에, 배열의 중간값을 나타냄
+        static int MAX_SIZE = 1_000_001;
+    
+        int[] data = new int[(2*MAX_SIZE)+1];
+        int head = MAX_SIZE, tail = MAX_SIZE;
+    
+        
+        void addFirst(int x) {
+            data[--head] = x;
+        }
+        
+        void addLast(int x) {
+            data[tail++] = x;
+        }
+        
+        int pollFirst() {
+            return data[head++];
+        }
+        
+        int pollLast() {
+            return data[--tail];
+        }
+        
+        int peekFirst() {
+            return data[head];
+        }
+    
+        int peekLast() {
+            return data[tail-1];
+        }
+    
+        boolean isEmpty() {
+            return head == tail;
+        }
+        
+        int size() {
+            return tail - head;
+        }
     }
 }
 
