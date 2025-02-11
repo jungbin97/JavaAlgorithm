@@ -20,8 +20,8 @@ public class Main {
 
         }
 
-        Queue<int[]> qGH = new LinkedList<>();
-        Queue<int[]> qFire = new LinkedList<>();
+        Queue<int[]> qGH = new ArrayDeque<>();
+        Queue<int[]> qFire = new ArrayDeque<>();
 
         char[][] graph = new char[R][C];
         for (int i = 0; i < R; i++) {
@@ -94,7 +94,6 @@ public class Main {
         }
         System.out.println("IMPOSSIBLE");
         
-
     }
 }
 
