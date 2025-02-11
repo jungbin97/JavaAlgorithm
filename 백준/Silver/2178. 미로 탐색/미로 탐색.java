@@ -1,73 +1,63 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.util.*;
+import java.io.*;
 
 public class Main {
-    /**********************************************************************
-     *
-     *
-     **********************************************************************/
-    static int n;
-	static int m;
-	static int[][] map;
-	static boolean[][] visited;
+    static boolean[][] visited;
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
 
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
+        // 상하좌우 이동
+        int[] dx = new int[] {0, 1, -1, 0};
+        int[] dy = new int[] {1, 0, 0, -1};
 
-		n = Integer.parseInt(st.nextToken());// 행
-		m = Integer.parseInt(st.nextToken());// 열
+        Queue<int[]> q = new LinkedList<>();
 
-		map = new int[n][m]; // 미로 지도
-		visited = new boolean[n][m]; // 방문 여부
-		visited[0][0] = true;
+        // 그래프 초기화
+        int[][] graph = new int[n][m];
+        for (int i = 0; i < n; i++) {
+            String line = br.readLine();
+            for (int j = 0; j < m; j++) {
+                graph[i][j] = line.charAt(j) - '0';
+            }
+        }
+        
+        // 방문 배열 초기화
+        visited = new boolean[n][m];
 
-		for (int i = 0; i < n; i++) { // 지도 생성
-			st = new StringTokenizer(br.readLine());
-			String str = st.nextToken();
-			for (int j = 0; j < m; j++) {
-				map[i][j] = str.charAt(j) - '0';
-			}
-		}
+        // 거리 초기화
 
-		search(0, 0);
-		System.out.println(map[n - 1][m - 1]);
-	}
+        visited[0][0]= true;
+        q.add(new int[] {0, 0});
+        
+        // bfs 수행
+        while (!q.isEmpty()) {
+            int[] now = q.poll();
+            
+            // 4방향 탐색
+            for (int k = 0; k < 4; k++) {
+                int nx = now[0] + dx[k];
+                int ny = now[1] + dy[k];
+                
+                // 방문하지 않고, 1이고, 인덱스 범위 이내
+                if (nx >= 0 && ny >= 0 && nx < n && ny < m) {
+                    if (!visited[nx][ny] && graph[nx][ny] == 1) {
+                        visited[nx][ny] = true;
+                        q.add(new int[] {nx, ny});
+                        graph[nx][ny] = graph[now[0]][now[1]]+1;
+                    }
+                }
+            }
+        }
+        
+        System.out.println(graph[n-1][m-1]);
 
-	public static void search(int x, int y) {
-		Queue<int[]> queue = new LinkedList<int[]>();
-		queue.add(new int[] { x, y });
-
-		// 이동 할 수 있는 가지 수, 동서남북
-		int[] dx = { 1, 0, -1, 0 };
-		int[] dy = { 0, 1, 0, -1 };
-
-		while (!queue.isEmpty()) { // 큐에 들어간 좌표 탐색이 모두 끝날 때까지 반복
-			int[] xy = queue.poll();
-
-			for (int i = 0; i < 4; i++) { // 동, 서, 남, 북 탐색
-				int nextX = xy[0] + dx[i];
-				int nextY = xy[1] + dy[i];
-
-				// 다음 지점이 미로를 벗어나거나, 벽이거나, 이미 탐색을 한 좌표이면 무시
-				if (nextX < 0 || nextX >= n || nextY < 0 || nextY >= m || visited[nextX][nextY]
-						|| map[nextX][nextY] == 0) {
-					continue;
-				}
-
-				// 다음 탐색 지점을 큐에 추가
-				queue.add(new int[] { nextX, nextY });
-
-				// 다음 탐색 지점 탐색처리
-				visited[nextX][nextY] = true;
-
-				// 다음 탐색 지점의 비용을 현재 좌표 + 1 로 변경
-				map[nextX][nextY] = map[xy[0]][xy[1]] + 1;
-			}
-		}
-	}
+    }
 }
+
+// 이동할 수 있는 칸 1
+// (1,1) 출발하여 (n, m) 최소 칸 수
+// bfs
