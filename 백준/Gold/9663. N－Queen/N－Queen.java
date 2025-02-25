@@ -5,6 +5,10 @@ public class Main {
     static int n;
     static int count;
     static int[] arr;
+    
+    static boolean[] isUsed1 = new boolean[40];
+    static boolean[] isUsed2 = new boolean[40];
+    static boolean[] isUsed3 = new boolean[40];
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         
@@ -14,28 +18,28 @@ public class Main {
         func(0);
         System.out.println(count);
     }
-    static boolean check(int index) {
-        for (int i = 0; i < index; i++) {
-            if (arr[index] == arr[i] || Math.abs(arr[index] - arr[i]) == index - i) {
-                return false;
-            }
-        }
-        return true;
-    }
     
     static void func(int index) {
         if (index == n) {
             count++;
             return;
-        } else {
-            // 해당 행의 열을 차례대로 탐색하여 유망한곳 찾기
-            for (int i = 0; i < n; i++) {
-                arr[index] = i;
-                if (check(index)) {
-                    func(index+1);
-                }
-            }
         }
+        
+
+        // 열에 둘곳 찾기
+        for (int i = 0; i < n; i++) {
+            if (isUsed1[i] || isUsed2[i+index] || isUsed3[index-i+n-1]) {
+                continue;
+            }
+            isUsed1[i] = true;
+            isUsed2[i+index] = true;
+            isUsed3[index-i+n-1] = true;
+            func(index+1);
+            isUsed1[i] = false;
+            isUsed2[i+index] = false;
+            isUsed3[index-i+n-1] = false;
+        }
+        
     }
 }
 
