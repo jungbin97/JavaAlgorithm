@@ -4,7 +4,7 @@ import java.io.*;
 public class Main {
     static int n, m;
     static int[] arr;
-    static StringBuilder sb = new StringBuilder();
+    static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -15,16 +15,18 @@ public class Main {
         arr = new int[m];
         
         func(0);
-        System.out.println(sb.toString());
+        
+        bw.flush();
+        bw.close();
     }
     
     
-    static void func(int index) {
+    static void func(int index) throws IOException {
         if (index == m) {
             for (int i = 0; i < m; i++) {
-                sb.append(arr[i] + " ");
+                bw.write(arr[i] + " ");
             }
-            sb.append("\n");
+            bw.write("\n");
             return;
         }
         
