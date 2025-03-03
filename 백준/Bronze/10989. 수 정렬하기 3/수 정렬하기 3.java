@@ -1,31 +1,29 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.*;
+import java.io.*;
 
 public class Main {
-        /**********************************************************************
-         *
-         *
-         **********************************************************************/
-        public static void main(String[] args) throws IOException {
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-            int n = Integer.parseInt(br.readLine());
-            int[] arr = new int[10001];
-
-            for (int i=0; i<n;i++){
-                 int num = Integer.parseInt(br.readLine());
-                 arr[num] += 1;
-            }
-
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i<10001; i++){
-                if (arr[i]!= 0){
-                    for (int j = 0; j<arr[i]; j++){
-                        sb.append(i).append("\n");
-                    }
+    static int[] arr;
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        
+        int n = Integer.parseInt(br.readLine());
+        int[] arr = new int[10_001];
+        for (int i = 0; i < n; i++) {
+            int value = Integer.parseInt(br.readLine());
+            arr[value] += 1;
+        }
+        
+        for (int i = 0; i < 10_001; i++) {
+            if (arr[i] != 0) {
+                for (int j = 0; j < arr[i]; j++) {
+                    bw.write(i + "\n");
                 }
             }
-            System.out.println(sb);
         }
+        
+        
+        bw.flush();
+        bw.close();
+    }
 }
