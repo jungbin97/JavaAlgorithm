@@ -5,6 +5,7 @@ public class Main {
     static int[] arr;
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         
         int n = Integer.parseInt(br.readLine());
         int[] arr = new int[n];
@@ -16,9 +17,10 @@ public class Main {
         Arrays.sort(arr);
         
         for (int a : arr) {
-            System.out.println(a);
+            bw.write(a + "\n");
         }
         
-
+        bw.flush();
+        bw.close();
     }
 }
