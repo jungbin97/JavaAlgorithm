@@ -2,72 +2,60 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    static int[] arr;
+    static int[] parent;
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        // 원소 개수
+        
+
         int n = Integer.parseInt(st.nextToken());
-        // 질의 개수
         int m = Integer.parseInt(st.nextToken());
-        
-        arr = new int[n+1];
-        
-        // 배열 자신 노드로 초기세팅
-        for(int i = 0; i < arr.length; i++) {
-            arr[i] = i;
+
+        parent = new int[n+1];
+        // 자기 자신으로 초기화
+        for (int i = 1; i <= n; i++) {
+            parent[i] = i;
         }
         
-        for (int i = 0; i < m; i++){
+
+        for (int i = 1; i <= m; i++) {
             st = new StringTokenizer(br.readLine());
-            int question = Integer.parseInt(st.nextToken()); 
-            int a = Integer.parseInt(st.nextToken()); 
-            int b = Integer.parseInt(st.nextToken()); 
+            int oper = Integer.parseInt(st.nextToken());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
             
-            // 합집합연산
-            if (question == 0) {
+            // 0이면 합치기
+            if (oper == 0) {
                 union(a, b);
-            } else {
-                if (checkSame(a, b)) {
-                    System.out.println("YES");
+            } else if (oper == 1) {
+                if (find(a) == find(b)) {
+                    System.out.println("yes");
                 } else {
-                    System.out.println("NO");
+                    System.out.println("no");
                 }
             }
-        }
 
-        
+        }
     }
     
-    // 대표 노드 까리 연결하기
-    public static void union(int a, int b) {
+    static void union(int a, int b) {
+        // 루트 찾기
         a = find(a);
         b = find(b);
-
+        
         if (a != b) {
-            arr[b] = a;
-        }
-    }
-
-
-    // 대표 노드 찾기
-    public static int find(int a) {
-        if (a == arr[a]) {
-            return a;
-        } else {
-            return arr[a] = find(arr[a]);
+            parent[b] = a;
         }
     }
     
-    // 두원소가 같은 집합인지
-    public static boolean checkSame(int a, int b) {
-        a = find(a);
-        b = find(b);
-        
-        if (a == b) {
-            return true;
+    static int find(int node) {
+        // 자기 자신이면 루트 노드o
+        if (node == parent[node]) {
+            return node;
         } else {
-            return false;
+            return parent[node] = find(parent[node]);
         }
+        
     }
+
 }
