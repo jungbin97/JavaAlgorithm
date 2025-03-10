@@ -60,7 +60,7 @@ public class Main {
                 int backY = c - direction[d][1];
                 
                 // 뒤가 벽이라면 후진 작동 중지
-                if (backX < 0 || backY < 0|| backX >= n || backY >= m || graph[backX][backY] == 1) {
+                if (graph[backX][backY] == 1) {
                     break;
                 }
                 // 후진
