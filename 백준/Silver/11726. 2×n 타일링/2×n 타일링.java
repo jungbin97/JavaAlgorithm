@@ -1,18 +1,33 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.*;
+import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
         int n = Integer.parseInt(br.readLine());
 
-        int[] dp = new int[1001]; // new int[n+1] 로 하면  런타임 에러(ArrayIndexOutOfBounds) 발생 new int[1001]로 바꿔줌 
-        dp[1] = 1;
-        dp[2] = 2;
-        for (int i = 3; i <= n; i++) {
-            dp[i] = (dp[i - 1] + dp[i - 2]) % 10007;
+        int[] D = new int[n+1];
+        
+        D[1] = 1;
+        if (n > 1) {
+            D[2] = 2;
         }
-        System.out.println(dp[n]);
+        
+        for (int i = 3; i <= n; i++) {
+            D[i] = (D[i-1] + D[i-2])%10007;
+        }
+        System.out.println(D[n]);
     }
 }
+
+// 테이블 정의
+// D[n] = 2Xn크기 직사각형 채우는 방법 수
+
+// 점화식 구하기
+// D[N] = D[N-1] + D[N-2]
+
+// 초기값 정하기
+// D[N-2]이니까 D[2]까지
+// D[1] = 1
+// D[2] = 2
