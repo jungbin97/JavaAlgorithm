@@ -9,7 +9,7 @@ public class Main {
         int n = Integer.parseInt(br.readLine());
         int[] T = new int[n+1];
         int[] P = new int[n+1];
-        long[] D = new long[n+2];
+        int[] D = new int[n+2];
 
         for (int i = 1; i <= n; i++) {
             st = new StringTokenizer(br.readLine());
