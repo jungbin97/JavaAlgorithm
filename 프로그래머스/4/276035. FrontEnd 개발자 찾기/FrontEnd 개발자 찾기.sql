@@ -1,11 +1,10 @@
-select ID, EMAIL, FIRST_NAME, LAST_NAME from DEVELOPERS DEV
-where DEV.SKILL_CODE & (
-	SELECT sum(CODE)
-    FROM SKILLCODES
-    WHERE CATEGORY = "Front End"
+select id, email, first_name, last_name from developers
+where skill_code & 
+(select sum(code) from skillcodes 
+ group by category
+ having category = 'Front End'
 )
-order by ID asc;
-
+ order by id asc;
 
 -- Front End 스킬을 가진 개발자 정보 조회
 -- ID 기준 오름차순 정렬
